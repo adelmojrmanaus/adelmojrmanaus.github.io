@@ -3,34 +3,74 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f4f1ea">
 <title>Achados &amp; Ofertas — os mais vendidos de cada loja</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  :root { --fundo:#faf8f5; --tinta:#2b2825; --suave:#8a837b; --borda:#e6e1da; --destaque:#0a7d4f; }
+  /* Tema "Editorial claro" — mesmo do ConsumidorForte (03_Consumidor-Forte):
+     fundo osso, tinta quase-preta, acento único teal, Fraunces (display) + Manrope (corpo).
+     Ao mudar o tema lá, espelhar os tokens aqui. */
+  :root{
+    --bg:#f4f1ea; --card:#fcfbf7; --ink:#1f1b16; --muted:#6e685d; --soft:#8d8577;
+    --line:#e5dfd3; --accent:#0f5c57; --accent-600:#0c4a46; --accent-50:#dfecea;
+    --orange:#b4532a;
+    --shadow:0 1px 2px rgba(31,27,22,.05); --shadow-md:0 4px 16px rgba(31,27,22,.07);
+    --radius:16px; --radius-sm:11px; --ease-out:cubic-bezier(.22,1,.36,1);
+  }
   * { box-sizing:border-box; margin:0; }
-  body { font-family:Georgia,'Times New Roman',serif; background:var(--fundo); color:var(--tinta); line-height:1.5; }
-  header { padding:2.5rem 1.5rem 1.5rem; max-width:1100px; margin:0 auto; }
-  header h1 { font-size:1.9rem; font-weight:normal; }
-  header p { color:var(--suave); margin-top:.4rem; font-size:.95rem; }
-  main { max-width:1100px; margin:0 auto; padding:0 1.5rem 3rem; }
-  section { margin-top:2.2rem; }
-  section h2 { font-size:1.25rem; font-weight:normal; border-bottom:1px solid var(--borda); padding-bottom:.5rem; }
-  section h2 small { color:var(--suave); font-size:.8rem; margin-left:.5rem; }
-  .grade { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:1rem; margin-top:1rem; }
-  .card { background:#fff; border:1px solid var(--borda); border-radius:8px; padding:.9rem; text-decoration:none; color:inherit; display:flex; flex-direction:column; gap:.5rem; transition:box-shadow .15s; }
-  .card:hover { box-shadow:0 2px 12px rgba(0,0,0,.08); }
-  .card img { width:100%; height:150px; object-fit:contain; background:#fff; }
-  .sem-img { height:150px; background:var(--borda); border-radius:4px; }
-  .card h3 { font-size:.9rem; font-weight:normal; flex:1; }
-  .rank { color:var(--destaque); font-size:.72rem; letter-spacing:.05em; text-transform:uppercase; }
-  .preco { font-size:1.05rem; }
-  .badge-aviso { font-size:.65rem; color:#b3591a; border:1px solid #b3591a; border-radius:4px; padding:0 .3rem; vertical-align:middle; }
-  .vazio { color:var(--suave); font-style:italic; padding:1rem 0; }
-  footer { max-width:1100px; margin:0 auto; padding:1.5rem; color:var(--suave); font-size:.8rem; border-top:1px solid var(--borda); }
+  body { font-family:"Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+         background:var(--bg); color:var(--ink); font-size:14px; line-height:1.5;
+         -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+  ::selection { background:var(--accent-50); }
+  /* Folha editorial: papel claro com hairlines laterais sobre o fundo osso */
+  .folha { max-width:1100px; margin:0 auto; background:var(--card);
+           border-left:1px solid var(--line); border-right:1px solid var(--line);
+           min-height:100dvh; display:flex; flex-direction:column; }
+  header { padding:2.6rem 1.6rem 1.4rem; border-bottom:1px solid var(--line); }
+  header h1 { font-family:"Fraunces",Georgia,"Times New Roman",serif;
+              letter-spacing:-.01em; font-size:2rem; font-weight:600; }
+  header h1 span { color:var(--accent); }
+  header p { color:var(--muted); margin-top:.45rem; font-size:.95rem; }
+  main { padding:0 1.6rem 3rem; flex:1; }
+  section { margin-top:2.4rem; }
+  section h2 { font-family:"Fraunces",Georgia,"Times New Roman",serif;
+               letter-spacing:-.01em; font-size:1.3rem; font-weight:600;
+               border-bottom:1px solid var(--line); padding-bottom:.55rem; }
+  section h2 small { color:var(--soft); font-family:"Manrope",sans-serif;
+                     font-size:.72rem; font-weight:700; letter-spacing:.06em;
+                     text-transform:uppercase; margin-left:.6rem; }
+  .grade { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr));
+           gap:1rem; margin-top:1.1rem; }
+  .card { background:var(--card); border:1px solid var(--line);
+          border-radius:var(--radius-sm); padding:.95rem; text-decoration:none;
+          color:inherit; display:flex; flex-direction:column; gap:.55rem;
+          box-shadow:var(--shadow);
+          transition:transform .18s var(--ease-out), box-shadow .18s var(--ease-out); }
+  .card:hover { transform:translateY(-2px); box-shadow:var(--shadow-md); }
+  .card img { width:100%; height:150px; object-fit:contain; background:#fff;
+              border-radius:6px; }
+  .sem-img { height:150px; background:var(--bg); border:1px dashed var(--line);
+             border-radius:6px; }
+  .card h3 { font-size:.9rem; font-weight:600; flex:1; }
+  .rank { color:var(--accent); font-size:.7rem; font-weight:700;
+          letter-spacing:.08em; text-transform:uppercase; }
+  .preco { font-family:"Fraunces",Georgia,serif; font-variant-numeric:tabular-nums;
+           font-size:1.15rem; font-weight:600; color:var(--accent); }
+  .badge-aviso { font-size:.65rem; font-weight:700; color:var(--orange);
+                 border:1px solid currentColor; border-radius:999px;
+                 padding:.05rem .45rem; vertical-align:middle;
+                 letter-spacing:.04em; text-transform:uppercase; }
+  .vazio { color:var(--soft); font-style:italic; padding:1rem 0; }
+  footer { padding:1.6rem; color:var(--muted); font-size:.8rem;
+           border-top:1px solid var(--line); }
 </style>
 </head>
 <body>
+<div class="folha">
 <header>
-  <h1>Achados &amp; Ofertas</h1>
+  <h1>Achados <span>&amp; Ofertas</span></h1>
   <p>Os produtos mais vendidos de cada plataforma, em um só lugar. Atualizado em 25/07/2026 15:36.</p>
 </header>
 <main>
@@ -41,5 +81,6 @@
   feitas pelos links desta página, sem custo adicional para você. Preços coletados automaticamente e
   sujeitos a alteração — vale o valor exibido na loja.</p>
 </footer>
+</div>
 </body>
 </html>

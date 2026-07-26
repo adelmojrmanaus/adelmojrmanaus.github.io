@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#f4f1ea">
-<title>Achados &amp; Ofertas — os mais vendidos de cada loja</title>
+<title>Ofertas — ConsumidorForte</title>
 <link rel="icon" href="/icons/icon-192.png"><!-- escudo do ConsumidorForte (mesmo domínio em produção) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,6 +30,14 @@
            border-left:1px solid var(--line); border-right:1px solid var(--line);
            min-height:100dvh; display:flex; flex-direction:column; }
   header { padding:2.6rem 1.6rem 1.4rem; border-bottom:1px solid var(--line); }
+  /* Barra de retorno ao ConsumidorForte (a página vive em consumidorforte.com/ofertas) */
+  .volta { display:flex; align-items:center; justify-content:space-between; gap:1rem; margin-bottom:1.7rem; }
+  .volta-marca { font-family:"Fraunces",Georgia,serif; font-weight:600; font-size:1.06rem;
+    color:var(--ink); text-decoration:none; letter-spacing:-.01em; }
+  .volta-marca strong { color:var(--accent); font-weight:700; }
+  .volta-app { font-size:.8rem; font-weight:800; color:#fcfbf7; background:var(--accent);
+    padding:.52rem .95rem; border-radius:999px; text-decoration:none; white-space:nowrap; }
+  .volta-app:hover { background:#0c4a46; }
   .kicker { color:var(--accent); font-size:.72rem; font-weight:800;
             letter-spacing:.14em; text-transform:uppercase;
             display:flex; align-items:center; gap:.5rem; margin-bottom:.85rem; }
@@ -79,6 +87,10 @@
 <body>
 <div class="folha">
 <header>
+  <nav class="volta" aria-label="Voltar ao ConsumidorForte">
+    <a class="volta-marca" href="/">Consumidor<strong>Forte</strong></a>
+    <a class="volta-app" href="/app/">Abrir o app</a>
+  </nav>
   <p class="kicker">Os mais vendidos de cada loja</p>
   <div class="marca-linha">
     <span class="marca" aria-hidden="true">
@@ -88,7 +100,7 @@
         <circle cx="7.5" cy="7.5" r=".5" fill="#fcfbf7"/>
       </svg>
     </span>
-    <h1>Achados <span>&amp; Ofertas</span></h1>
+    <h1>Ofertas</h1>
   </div>
   <p>Seleção em um só lugar, com link direto para a loja. Atualizado em 25/07/2026 15:36.</p>
 </header>
